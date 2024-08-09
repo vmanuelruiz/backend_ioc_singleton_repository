@@ -1,0 +1,9 @@
+{
+    "ext": "ts",
+    "ignore": [
+      "src/**/*.spec.ts",
+      "src/loaders/routes/routes.ts"
+    ],
+    "exec": "node --inspect -r ts-node/register src/app"
+  }
+  

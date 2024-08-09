@@ -1,0 +1,34 @@
+{
+    "entryFile": "src/app.ts",
+    "noImplicitAdditionalProperties": "throw-on-extras",
+    "controllerPathGlobs": [
+        "src/**/*.controller.ts"
+    ],
+    "spec": {
+        "host": "localhost",
+        "basePath": "/v1",
+        "outputDirectory": "docs",
+        "specVersion": 3,
+        "securityDefinitions": {
+            "api-auth": {
+                "type": "apiKey",
+                "in": "header",
+                "name": "X-Api-Auth"
+            }
+        },
+        "spec": {
+            "servers": [
+                {
+                    "url": "http://localhost:3000/v1",
+                    "description": "prod environment"
+                }
+            ]
+        }
+    },
+    "routes": {
+        "basePath": "/v1",
+        "routesDir": "src/loaders/routes",
+        "authenticationModule": "src/modules/auth/authentication.service.ts",
+        "iocModule": "src/ioc"
+    }
+}

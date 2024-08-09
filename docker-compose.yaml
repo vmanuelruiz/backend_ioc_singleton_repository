@@ -1,0 +1,65 @@
+version: "3.9"
+name: backend-ioc
+
+services:
+  backend:
+      build:
+        context: .
+      ports:
+        - 3000:3000
+      expose:
+        - 3000
+      depends_on:
+        wait-for-db:
+            condition: service_completed_successfully
+      env_file:
+        - .env.docker
+      networks:
+        - backend-ioc-network
+      volumes:
+        - ./src:/app/src
+  redis:
+    image: redis:latest
+    restart: always
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/root/redis
+    environment:
+      - REDIS_PASSWORD=
+      - REDIS_PORT=6379
+      - REDIS_DATABASES=16
+    networks:
+        - backend-ioc-network
+  mysql:
+      image: mysql:latest
+      restart: always
+      environment:
+        MYSQL_DATABASE: practical
+        MYSQL_USER: admin
+        MYSQL_PASSWORD: root
+        MYSQL_ROOT_PASSWORD: root
+      ports:
+        - 3306:3306
+      expose:
+        - 3306
+      volumes:
+        - db_data:/var/lib/mysql
+        - ./db_data:/docker-entrypoint-initdb.d
+      networks:
+        - backend-ioc-network
+  wait-for-db:
+    image: atkrad/wait4x
+    depends_on:
+      - mysql
+    command: tcp mysql:3306 -t 30s -i 250ms
+    networks:
+        - backend-ioc-network
+volumes:
+  db_data:
+    driver: local
+  redis_data:
+    driver: local
+networks:
+  backend-ioc-network:
+    driver: bridge

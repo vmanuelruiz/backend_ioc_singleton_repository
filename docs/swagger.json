@@ -1,0 +1,329 @@
+{
+	"openapi": "3.0.0",
+	"components": {
+		"examples": {},
+		"headers": {},
+		"parameters": {},
+		"requestBodies": {},
+		"responses": {},
+		"schemas": {
+			"Period": {
+				"description": "Time frame requested - [week, month, season]",
+				"enum": [
+					"week",
+					"month",
+					"season"
+				],
+				"type": "string"
+			},
+			"Position": {
+				"description": "Player position",
+				"enum": [
+					"GK",
+					"DEF",
+					"MID",
+					"FOR"
+				],
+				"type": "string"
+			},
+			"Stat": {
+				"properties": {
+					"teamName": {
+						"type": "string",
+						"description": "Name of the players current team"
+					},
+					"savesTier2": {
+						"type": "number",
+						"format": "double",
+						"description": "Players save bonus tier 2 in the requested period"
+					},
+					"lastName": {
+						"type": "string",
+						"description": "Player last name"
+					},
+					"savesTier1": {
+						"type": "number",
+						"format": "double",
+						"description": "Players save bonus tier 1 in the requested period"
+					},
+					"subs": {
+						"type": "number",
+						"format": "double",
+						"description": "Players substitute appearances in the requested period"
+					},
+					"motms": {
+						"type": "number",
+						"format": "double",
+						"description": "Players man of the match awards in the requested period"
+					},
+					"points": {
+						"type": "number",
+						"format": "double",
+						"description": "Players points scored in the requested period"
+					},
+					"redCards": {
+						"type": "number",
+						"format": "double",
+						"description": "Players red cards received in the requested period"
+					},
+					"concedes": {
+						"type": "number",
+						"format": "double",
+						"description": "Players goals conceded in the requested period"
+					},
+					"assists": {
+						"type": "number",
+						"format": "double",
+						"description": "Players assists in the requested period"
+					},
+					"shotsTier1": {
+						"type": "number",
+						"format": "double",
+						"description": "Players shots bonus tier 1 in the requested period"
+					},
+					"shotsTier2": {
+						"type": "number",
+						"format": "double",
+						"description": "Players shots bonus tier 2 in the requested period"
+					},
+					"id": {
+						"type": "number",
+						"format": "double",
+						"description": "Player identifier"
+					},
+					"starts": {
+						"type": "number",
+						"format": "double",
+						"description": "Players match starts in the requested period"
+					},
+					"goals": {
+						"type": "number",
+						"format": "double",
+						"description": "Players goals scored in the requested period"
+					},
+					"tacklesTier1": {
+						"type": "number",
+						"format": "double",
+						"description": "Players tackles bonus tier 1 in the requested period"
+					},
+					"tacklesTier2": {
+						"type": "number",
+						"format": "double",
+						"description": "Players tackles bonus tier 2 in the requested period"
+					},
+					"ownGoals": {
+						"type": "number",
+						"format": "double",
+						"description": "Players own goals scored in the requested period"
+					},
+					"cleansheets": {
+						"type": "number",
+						"format": "double",
+						"description": "Players cleansheets in the requested period"
+					},
+					"penSaves": {
+						"type": "number",
+						"format": "double",
+						"description": "Players penalty saves in the requested period"
+					},
+					"firstName": {
+						"type": "string",
+						"description": "Player first name - empty string for someone like Willian"
+					},
+					"penMisses": {
+						"type": "number",
+						"format": "double",
+						"description": "Players penalties missed in the requested period"
+					},
+					"passesTier1": {
+						"type": "number",
+						"format": "double",
+						"description": "Players passes bonus tier 1 in the requested period"
+					},
+					"position": {
+						"$ref": "#/components/schemas/Position"
+					},
+					"passesTier2": {
+						"type": "number",
+						"format": "double",
+						"description": "Players passes bonus tier 2 in the requested period"
+					},
+					"yellowCards": {
+						"type": "number",
+						"format": "double",
+						"description": "Players yellow cards received in the requested period"
+					}
+				},
+				"required": [
+					"teamName",
+					"savesTier2",
+					"lastName",
+					"savesTier1",
+					"subs",
+					"motms",
+					"points",
+					"redCards",
+					"concedes",
+					"assists",
+					"shotsTier1",
+					"shotsTier2",
+					"id",
+					"starts",
+					"goals",
+					"tacklesTier1",
+					"tacklesTier2",
+					"ownGoals",
+					"cleansheets",
+					"penSaves",
+					"firstName",
+					"penMisses",
+					"passesTier1",
+					"position",
+					"passesTier2",
+					"yellowCards"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"StatsResponse": {
+				"properties": {
+					"period": {
+						"$ref": "#/components/schemas/Period"
+					},
+					"stats": {
+						"items": {
+							"$ref": "#/components/schemas/Stat"
+						},
+						"type": "array"
+					}
+				},
+				"required": [
+					"period",
+					"stats"
+				],
+				"type": "object",
+				"additionalProperties": false
+			},
+			"QueryParams": {
+				"properties": {
+					"weekId": {
+						"type": "integer",
+						"format": "int32",
+						"description": "When period set to 'week' - specifies the ID of the week to return [1-37]"
+					},
+					"monthId": {
+						"type": "integer",
+						"format": "int32",
+						"description": "When period set to 'month' - specifies the ID of the month to return [1-12]"
+					}
+				},
+				"type": "object",
+				"additionalProperties": false
+			}
+		},
+		"securitySchemes": {
+			"api-auth": {
+				"type": "apiKey",
+				"in": "header",
+				"name": "X-Api-Auth"
+			}
+		}
+	},
+	"info": {
+		"title": "ioc_singleton_repository",
+		"version": "1.0.0",
+		"description": "Backend project to generate automatically swagger docs with open API 3, using IOC with singleton and repository patterns",
+		"license": {
+			"name": "ISC"
+		},
+		"contact": {
+			"name": "Victor Ruiz"
+		}
+	},
+	"paths": {
+		"/stats/{period}": {
+			"get": {
+				"operationId": "GetStats",
+				"responses": {
+					"200": {
+						"description": "200 response",
+						"content": {
+							"application/json": {
+								"schema": {
+									"$ref": "#/components/schemas/StatsResponse"
+								}
+							}
+						}
+					}
+				},
+				"summary": "Gets the season, week or month for all the players",
+				"tags": [
+					"Stats"
+				],
+				"security": [
+					{
+						"api-auth": []
+					}
+				],
+				"parameters": [
+					{
+						"in": "path",
+						"name": "period",
+						"required": true,
+						"schema": {
+							"$ref": "#/components/schemas/Period"
+						}
+					},
+					{
+						"description": "When period set to 'week' - specifies the ID of the week to return [1-37]",
+						"in": "query",
+						"name": "weekId",
+						"required": false,
+						"schema": {
+							"format": "int32",
+							"type": "integer"
+						}
+					},
+					{
+						"description": "When period set to 'month' - specifies the ID of the month to return [1-12]",
+						"in": "query",
+						"name": "monthId",
+						"required": false,
+						"schema": {
+							"format": "int32",
+							"type": "integer"
+						}
+					}
+				]
+			},
+			"options": {
+				"operationId": "GetOptions",
+				"responses": {
+					"200": {
+						"description": "Ok",
+						"content": {
+							"application/json": {
+								"schema": {}
+							}
+						}
+					}
+				},
+				"tags": [
+					"Stats"
+				],
+				"security": [
+					{
+						"api-auth": []
+					}
+				],
+				"parameters": []
+			}
+		}
+	},
+	"servers": [
+		{
+			"url": "http://localhost:3000/v1",
+			"description": "prod environment"
+		}
+	]
+}

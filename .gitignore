@@ -1,0 +1,13 @@
+.vscode/*
+
+node_modules/*
+
+.dist/*
+logs
+*.log
+
+.env
+
+.nyc_output/*
+
+redis_data
